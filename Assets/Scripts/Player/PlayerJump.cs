@@ -25,14 +25,14 @@ public class PlayerJump : MonoBehaviour
 
 	private void Update()
 	{
-		OnGround = Physics.OverlapSphere(_groundChecker.position, _groundCheckerRadius, _groundLayer).Length > 0;
-	}
-	
-	private void GameInput_OnJumpAction(object sender, EventArgs e)
-	{
-		if (!OnGround)
-			return;
-        
-		_rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-	}
+        OnGround = Physics.OverlapSphere(_groundChecker.position, _groundCheckerRadius, _groundLayer).Length > 0;
+    }
+
+    private void GameInput_OnJumpAction(object sender, EventArgs e)
+    {
+        if (!OnGround)
+            return;
+
+        _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+    }
 }

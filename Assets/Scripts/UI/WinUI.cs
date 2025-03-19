@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class WinUI : MonoBehaviour
 {
     [SerializeField] private Button _restartButton;
+    [SerializeField] private TextMeshProUGUI _bestTimeText;
     [SerializeField] private TextMeshProUGUI _timeText;
+
+    private const string BestTime = "BestTime";
 
     private void Awake()
     {
@@ -32,11 +35,19 @@ public class WinUI : MonoBehaviour
     private void SetupTimeText()
     {
         float levelTime = LevelTimeController.Instance.GetLevelTime();
+        float bestTime = PlayerPrefs.GetFloat(BestTime, 1000);
 
-        int minutes = (int)levelTime / 60;
-        int seconds = (int)levelTime % 60;
+        if (levelTime < bestTime)
+        {
+            PlayerPrefs.SetFloat(BestTime, levelTime);
+        }
 
-        _timeText.text = $"Time: {minutes:00}:{seconds:00}";
+        //int minutes = (int)levelTime / 60;
+        //int seconds = (int)levelTime % 60;
+        //_timeText.text = $"Time: {minutes:00}:{seconds:00}";
+
+        _bestTimeText.text = $"Best Time: {bestTime}";
+        _timeText.text = $"Time: {levelTime}";
     }
     
     private void Show()
